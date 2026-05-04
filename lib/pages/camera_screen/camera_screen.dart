@@ -6,6 +6,19 @@ import 'dart:async';
 import 'dart:math';
 
 class CameraScreen extends StatefulWidget {
+  final String? title;
+  final double? lat;
+  final double? lng;
+  final bool modoLibre;
+
+  const CameraScreen({
+    Key? key,
+    this.title,
+    this.lat,
+    this.lng,
+    this.modoLibre = false,
+  }) : super(key: key);
+
   @override
   _CameraScreenState createState() => _CameraScreenState();
 }
@@ -46,34 +59,103 @@ class _CameraScreenState extends State<CameraScreen> {
   }
 
   void verificarUbicacion() {
-    if (userPosition == null || heading == null) return;
-    if (!mounted) return;
+  if (userPosition == null || heading == null) return;
+  if (!mounted) return;
 
-    // 📍 POSICIÓN
-    double lat = userPosition!.latitude;
-    double lng = userPosition!.longitude;
+  double lat = userPosition!.latitude;
+  double lng = userPosition!.longitude;
 
-    // 🧪 PRUEBA (siempre cerca)
-    double dFime = calcularDistancia(lat, lng, lat, lng);
+  // 🔥 LISTA DE ESTATUAS
+  final estatuas = [
+    {
+      'title': 'Tigre FIME',
+      'lat': 25.7245,
+      'lng': -100.3130,
+      'info': '🐯 Estatua FIME\nFundada en 1947...'
+    },
+    {
+      'title': 'Pegaso FARQ',
+      'lat': 25.7264,
+      'lng': -100.3122,
+      'info': '🐎 Pegaso FARQ\nCreatividad en arquitectura...'
+    },
+    {
+      'title': 'Cocomixtle FCB',
+      'lat': 25.7315,
+      'lng': -100.3045,
+      'info': '🐱 Cocomixtle FCB\nFauna y biodiversidad...'
+    },
+    {
+      'title': 'Serpiente FAMED',
+      'lat': 25.7232,
+      'lng': -100.3088,
+      'info': '🐍 Serpiente FAMED\nSímbolo de la medicina...'
+    },
+  ];
 
-    // 📍 DIRECCIÓN HACIA FIME
-    double direccionFime = calcularDireccion(lat, lng, 25.7245, -100.3130);
+  // 🔵 MODO ESPECÍFICO (LocationDetails)
+  if (!widget.modoLibre) {
+    double distancia = calcularDistancia(
+      lat,
+      lng,
+      widget.lat!,
+      widget.lng!,
+    );
 
-    // 🔥 DIFERENCIA CORRECTA DE ÁNGULO
-    double diferencia = (heading! - direccionFime).abs();
+    double direccion = calcularDireccion(
+      lat,
+      lng,
+      widget.lat!,
+      widget.lng!,
+    );
+
+    double diferencia = (heading! - direccion).abs();
     diferencia = diferencia > 180 ? 360 - diferencia : diferencia;
 
-    bool estaApuntandoFime = diferencia < 20;
+    bool estaApuntando = diferencia < 20;
 
-    // 🎯 LÓGICA FINAL
-    if (dFime < 50 && estaApuntandoFime) {
-      infoText = "🐯 Estatua FIME\nFundada en 1947...";
+    if (distancia < 50 && estaApuntando) {
+      infoText = "📍 ${widget.title}\nDato curioso...";
     } else {
       infoText = "";
     }
-
-    setState(() {});
   }
+
+  // 🟢 MODO LIBRE (Home)
+  else {
+    String texto = "";
+
+    for (var estatua in estatuas) {
+      double distancia = calcularDistancia(
+        lat,
+        lng,
+        estatua['lat'] as double,
+        estatua['lng'] as double,
+      );
+
+      double direccion = calcularDireccion(
+        lat,
+        lng,
+        estatua['lat'] as double,
+        estatua['lng'] as double,
+      );
+
+      double diferencia = (heading! - direccion).abs();
+      diferencia = diferencia > 180 ? 360 - diferencia : diferencia;
+
+      bool estaApuntando = diferencia < 20;
+
+      if (distancia < 60 && estaApuntando) {
+        texto = estatua['info'] as String;
+        break;
+      }
+    }
+
+    infoText = texto;
+  }
+
+  setState(() {});
+}
 
   @override
   void initState() {
@@ -124,6 +206,28 @@ class _CameraScreenState extends State<CameraScreen> {
                 width: controller!.value.previewSize!.height,
                 height: controller!.value.previewSize!.width,
                 child: CameraPreview(controller!),
+              ),
+            ),
+          ),
+          
+          Positioned(
+            top: 50,
+            left: 20,
+            child: GestureDetector(
+              onTap: () {
+                Navigator.pop(context);
+              },
+              child: Container(
+                padding: EdgeInsets.all(10),
+                decoration: BoxDecoration(
+                  color: Colors.black.withOpacity(0.5),
+                  shape: BoxShape.circle,
+                ),
+                child: Icon(
+                  Icons.arrow_back_rounded,
+                  color: Colors.white,
+                  size: 24,
+                ),
               ),
             ),
           ),

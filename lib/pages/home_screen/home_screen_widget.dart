@@ -96,8 +96,9 @@ class _HomeScreenWidgetState extends State<HomeScreenWidget> {
             Navigator.push(
               context,
               MaterialPageRoute(
-                builder: (context) => CameraScreen(),
-              ),
+                  builder: (context) => CameraScreen(
+                        modoLibre: true,
+                      )),
             );
           },
           backgroundColor: FlutterFlowTheme.of(context).primary,
@@ -108,7 +109,7 @@ class _HomeScreenWidgetState extends State<HomeScreenWidget> {
           ),
           elevation: 0.0,
           label: Text(
-            'AR View',
+            'Vista RA',
             style: FlutterFlowTheme.of(context).labelLarge.override(
                   font: GoogleFonts.cabin(
                     fontWeight:
@@ -150,7 +151,7 @@ class _HomeScreenWidgetState extends State<HomeScreenWidget> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               Text(
-                                'Explora la',
+                                'Explora',
                                 style: FlutterFlowTheme.of(context)
                                     .bodyMedium
                                     .override(
@@ -196,55 +197,6 @@ class _HomeScreenWidgetState extends State<HomeScreenWidget> {
                                     ),
                               ),
                             ],
-                          ),
-                          Container(
-                            width: 48.0,
-                            height: 48.0,
-                            decoration: BoxDecoration(
-                              color: FlutterFlowTheme.of(context)
-                                  .secondaryBackground,
-                              borderRadius: BorderRadius.circular(9999.0),
-                              shape: BoxShape.rectangle,
-                              border: Border.all(
-                                color: FlutterFlowTheme.of(context).alternate,
-                                width: 1.0,
-                              ),
-                            ),
-                            alignment: AlignmentDirectional(0.0, 0.0),
-                            child: Container(
-                              width: 40.0,
-                              height: 40.0,
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context).primary,
-                                shape: BoxShape.circle,
-                              ),
-                              alignment: AlignmentDirectional(0.0, 0.0),
-                              child: Text(
-                                'VG',
-                                textAlign: TextAlign.center,
-                                maxLines: 1,
-                                style: FlutterFlowTheme.of(context)
-                                    .labelMedium
-                                    .override(
-                                      font: GoogleFonts.cabin(
-                                        fontWeight: FontWeight.w600,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .labelMedium
-                                            .fontStyle,
-                                      ),
-                                      color: FlutterFlowTheme.of(context)
-                                          .onPrimary,
-                                      fontSize: 15.2,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FontWeight.w600,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .labelMedium
-                                          .fontStyle,
-                                      lineHeight: 1.3,
-                                    ),
-                                overflow: TextOverflow.clip,
-                              ),
-                            ),
                           ),
                         ],
                       ),
@@ -329,29 +281,6 @@ class _HomeScreenWidgetState extends State<HomeScreenWidget> {
                                             lineHeight: 1.35,
                                           ),
                                     ),
-                                    Text(
-                                      'Ver en Mapa',
-                                      style: FlutterFlowTheme.of(context)
-                                          .labelLarge
-                                          .override(
-                                            font: GoogleFonts.cabin(
-                                              fontWeight: FontWeight.w600,
-                                              fontStyle:
-                                                  FlutterFlowTheme.of(context)
-                                                      .labelLarge
-                                                      .fontStyle,
-                                            ),
-                                            color: FlutterFlowTheme.of(context)
-                                                .primary,
-                                            letterSpacing: 0.0,
-                                            fontWeight: FontWeight.w600,
-                                            fontStyle:
-                                                FlutterFlowTheme.of(context)
-                                                    .labelLarge
-                                                    .fontStyle,
-                                            lineHeight: 1.3,
-                                          ),
-                                    ),
                                   ],
                                 ),
                               ),
@@ -420,8 +349,8 @@ class _HomeScreenWidgetState extends State<HomeScreenWidget> {
                                           ? calcularDistancia(
                                               userPosition!.latitude,
                                               userPosition!.longitude,
-                                              25.7230,
-                                              -100.3080,
+                                              25.7264,
+                                              -100.3122,
                                             ).toStringAsFixed(1)
                                           : '...',
                                       img_desc: 'assets/images/farq.jpg',
@@ -457,8 +386,8 @@ class _HomeScreenWidgetState extends State<HomeScreenWidget> {
                                           ? calcularDistancia(
                                               userPosition!.latitude,
                                               userPosition!.longitude,
-                                              25.7230,
-                                              -100.3080,
+                                              25.7315,
+                                              -100.3045,
                                             ).toStringAsFixed(1)
                                           : '...',
                                       img_desc: 'assets/images/fcb.jpg',
@@ -479,8 +408,7 @@ class _HomeScreenWidgetState extends State<HomeScreenWidget> {
                                         MaterialPageRoute(
                                           builder: (context) =>
                                               LocationDetailsWidget(
-                                            title:
-                                                'Estatua de Serpiente de FAMED',
+                                            title: 'Estatua Serpiente FAMED',
                                             lat: 25.7232,
                                             lng: -100.3088,
                                             image: 'assets/images/famed.jpg',
@@ -495,12 +423,12 @@ class _HomeScreenWidgetState extends State<HomeScreenWidget> {
                                           ? calcularDistancia(
                                               userPosition!.latitude,
                                               userPosition!.longitude,
-                                              25.7230,
-                                              -100.3080,
+                                              25.7232,
+                                              -100.3088,
                                             ).toStringAsFixed(1)
                                           : '...',
                                       img_desc: 'assets/images/famed.jpg',
-                                      title: 'Estatua de Serpiente de FAMED',
+                                      title: 'Estatua Serpiente FAMED',
                                     ),
                                   ),
                                 ),

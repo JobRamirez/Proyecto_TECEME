@@ -216,50 +216,12 @@ class _AttractionCardWidgetState extends State<AttractionCardWidget> {
                                   overflow: TextOverflow.ellipsis,
                                 ),
                               ),
-                              Icon(
-                                Icons.favorite_border_rounded,
-                                color:
-                                    FlutterFlowTheme.of(context).secondaryText,
-                                size: 22.0,
-                              ),
                             ],
                           ),
                           Row(
                             mainAxisSize: MainAxisSize.min,
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.center,
-                            children: [
-                              Icon(
-                                Icons.star_rounded,
-                                color: FlutterFlowTheme.of(context).tertiary,
-                                size: 16.0,
-                              ),
-                              Text(
-                                '${widget!.rating} (${widget!.reviews} reviews)',
-                                style: FlutterFlowTheme.of(context)
-                                    .bodySmall
-                                    .override(
-                                      font: GoogleFonts.roboto(
-                                        fontWeight: FlutterFlowTheme.of(context)
-                                            .bodySmall
-                                            .fontWeight,
-                                        fontStyle: FlutterFlowTheme.of(context)
-                                            .bodySmall
-                                            .fontStyle,
-                                      ),
-                                      color: FlutterFlowTheme.of(context)
-                                          .secondaryText,
-                                      letterSpacing: 0.0,
-                                      fontWeight: FlutterFlowTheme.of(context)
-                                          .bodySmall
-                                          .fontWeight,
-                                      fontStyle: FlutterFlowTheme.of(context)
-                                          .bodySmall
-                                          .fontStyle,
-                                      lineHeight: 1.4,
-                                    ),
-                              ),
-                            ].divide(SizedBox(width: 4.0)),
                           ),
                           Container(
                             height: 4.0,
